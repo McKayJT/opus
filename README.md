@@ -22,7 +22,8 @@ to be using it any time soon
 ### Import
 
 ```go
-import "github.com/McKayJT/opus@static-build"
+go get -u github.com/McKayJT/opus static-build
+import "github.com/McKayJT/opus"
 ```
 
 ### Encoding
@@ -118,7 +119,6 @@ Note regarding Forward Error Correction (FEC):
 > last packet.
 > Note also that in order to use this feature the encoder needs to be configured
 > with `SetInBandFEC(true)` and `SetPacketLossPerc(x)` options.
-```
 
 See https://godoc.org/gopkg.in/hraban/opus.v2#Stream for further info.
 
@@ -143,20 +143,20 @@ automatically build the opus libraries needed. You have few choices:
 
   ```sh
   $ go mod -vendor
-  $ bash ./vendor/github.com/MckayJT/opus/make-opus.sh  
+  $ bash ./vendor/github.com/McKayJT/opus/make-opus.sh
   $ go build -mod=vendor
   ```
-  
+
   On most systems, this will result in a nearly fully static compile, some
   other (common) system libraries may be linked in.
 
-* Even better, fully static linkage
-  install musl, either from your package management system, or from 
-  [their website](https://www.musl-libc.org/how.html). This will give 
+* Even better, fully static linkage.  
+  Install musl, either from your package management system, or from
+  [their website](https://www.musl-libc.org/how.html). This will give
   you a wrapper around gcc that will build against musl.
 
   ```sh
-  $ env CC=musl-gcc bash ./vendor/github.com/MckayJT/opus/make-opus.sh
+  $ env CC=musl-gcc bash ./vendor/github.com/McKayJT/opus/make-opus.sh
   $ env CC=musl-gcc go build -mod=vendor -ldflags='-linkmode=external "-extldflags=-static -s"'
   $ file mumbledj
   mumbledj: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked,Go BuildID=xaxkEkC5v0ll3GI5NfvP/xE8TI5-2z621pbKmWAXz/pQESQrCQPQKB6qnYSgYh/IaLyIdrPghEgcyCsI8tm, stripped
@@ -168,10 +168,11 @@ automatically build the opus libraries needed. You have few choices:
   
   Then you need to invoke your build for your project so that it knows
   where to find everything:  
+
   ```
   $ env CGO_CPPFLAGS="$(pkg-config --cflags opus)"  CGO_LDFLAGS="$(pkg-config --libs opus)" go build
   ```
-  
+
   If your package manager doesn't install static libraries (which is the usual case) you will
   have to have libopus installed on whatever system that you plan to run the compiled application on
 
