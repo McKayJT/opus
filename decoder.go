@@ -84,7 +84,7 @@ func (dec *Decoder) Decode(data []byte, pcm []int16) (int, error) {
 		(*C.uchar)(&data[0]),
 		C.opus_int32(len(data)),
 		(*C.opus_int16)(&pcm[0]),
-		C.int(cap(pcm)/dec.channels),
+		C.int(len(pcm)/dec.channels),
 		0))
 	if n < 0 {
 		return 0, Error(n)
@@ -112,7 +112,7 @@ func (dec *Decoder) DecodeFloat32(data []byte, pcm []float32) (int, error) {
 		(*C.uchar)(&data[0]),
 		C.opus_int32(len(data)),
 		(*C.float)(&pcm[0]),
-		C.int(cap(pcm)/dec.channels),
+		C.int(len(pcm)/dec.channels),
 		0))
 	if n < 0 {
 		return 0, Error(n)
@@ -141,7 +141,7 @@ func (dec *Decoder) DecodeFEC(data []byte, pcm []int16) error {
 		(*C.uchar)(&data[0]),
 		C.opus_int32(len(data)),
 		(*C.opus_int16)(&pcm[0]),
-		C.int(cap(pcm)/dec.channels),
+		C.int(len(pcm)/dec.channels),
 		1))
 	if n < 0 {
 		return Error(n)
@@ -170,7 +170,7 @@ func (dec *Decoder) DecodeFECFloat32(data []byte, pcm []float32) error {
 		(*C.uchar)(&data[0]),
 		C.opus_int32(len(data)),
 		(*C.float)(&pcm[0]),
-		C.int(cap(pcm)/dec.channels),
+		C.int(len(pcm)/dec.channels),
 		1))
 	if n < 0 {
 		return Error(n)
