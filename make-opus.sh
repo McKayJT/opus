@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 DIR_PATH="$(realpath "${0}" | xargs dirname)"
 OLD_PATH="$PWD"
