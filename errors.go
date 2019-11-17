@@ -9,9 +9,9 @@ import (
 )
 
 /*
-#cgo pkg-config: opus opusfile
+#cgo LDFLAGS: -L${SRCDIR}/lib -lopus
+#cgo CPPFLAGS: -I${SRCDIR}/include/opus
 #include <opus.h>
-#include <opusfile.h>
 */
 import "C"
 
@@ -36,6 +36,7 @@ func (e Error) Error() string {
 	return fmt.Sprintf("opus: %s", C.GoString(C.opus_strerror(C.int(e))))
 }
 
+/*
 type StreamError int
 
 var _ error = StreamError(0)
@@ -96,3 +97,4 @@ func (i StreamError) Error() string {
 		return "libopusfile error: %d (unknown code)"
 	}
 }
+*/

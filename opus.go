@@ -5,8 +5,8 @@
 package opus
 
 /*
-// Link opus using pkg-config.
-#cgo pkg-config: opus
+#cgo LDFLAGS: -L${SRCDIR}/lib -lopus -lm
+#cgo CPPFLAGS: -I${SRCDIR}/include
 #include <opus.h>
 */
 import "C"
